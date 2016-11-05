@@ -12,7 +12,7 @@ public class PlayerMP extends Player{
 	public int port;
 	
 	public PlayerMP(double x, double y, Game game) {
-		super(x, y, game);
+		//super(x, y, game);
 
 	}
 

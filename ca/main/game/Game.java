@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -14,12 +13,14 @@ import javax.swing.JOptionPane;
 import ca.main.game.control.KeyInput;
 import ca.main.game.gfx.BufferImageLoader;
 import ca.main.game.gfx.Player;
+import ca.main.game.gfx.SpriteSheet;
+import ca.main.game.gfx.SpriteSheetLoader;
 import ca.main.game.network.GameClient;
 import ca.main.game.network.GameServer;
 
 public class Game extends Canvas implements Runnable{
 
-	public static final int WIDTH = 96*4; 
+	public static final int WIDTH = 94*4; // 94 size of one tile without borders
 	public static final int HEIGHT = WIDTH / 12 *9; 
 	public static final int SCALE = 2;
 	public final String TITLE = "java 2D game";
@@ -33,22 +34,18 @@ public class Game extends Canvas implements Runnable{
 	private BufferedImage spriteSheet = null;
 	
 	private Player player;
+	private SpriteSheetLoader sprite_sheet_loader;
 	
 	private GameClient socketClient;
 	private GameServer socketServer;
 	
 	public void init(){
 		requestFocus();
-		BufferImageLoader loader = new BufferImageLoader();
-		try{
-			spriteSheet = loader.loadImage("/sheets/applejack2.png");
-		}catch (IOException e){
-			e.printStackTrace();
-		}
+		sprite_sheet_loader = new SpriteSheetLoader();
 		
 		addKeyListener(new KeyInput(this));//add keyLister to main game
 		
-		player = new Player(100,100,this);
+		player = new Player(100,100,this,0);
 		
 		socketClient.sendData("ping".getBytes());
 	}
@@ -190,7 +187,17 @@ public class Game extends Canvas implements Runnable{
 		game.start();//call on game to start
 	}
 
-	public BufferedImage getSpriteSheet() { //fetches "main" spritesheet when other classes need models
-		return spriteSheet;
+	public SpriteSheetLoader getSpriteSheetLoader() { //fetches "main" spritesheet when other classes need models
+		return sprite_sheet_loader;
+	}
+	
+	//fetchers for atributes
+	
+	public int getFrameWidth(){
+		return WIDTH;
+	}
+	
+	public int getFrameHeight(){
+		return HEIGHT;
 	}
 }
