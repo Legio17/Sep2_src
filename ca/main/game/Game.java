@@ -35,15 +35,12 @@ public class Game extends Canvas implements Runnable{
 	private Player player;
 	private SpriteSheetLoader sprite_sheet_loader;
 	
-	private MapReader mr;
-	
 	private GameClient socketClient;
 	private GameServer socketServer;
 	
 	public void init(){
 		requestFocus();
 		sprite_sheet_loader = new SpriteSheetLoader();
-		mr = new MapReader("res/maps/map01.txt");
 		
 		addKeyListener(new KeyInput(this));//add keyLister to main game
 		

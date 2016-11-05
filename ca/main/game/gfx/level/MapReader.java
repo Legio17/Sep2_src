@@ -20,7 +20,7 @@ public class MapReader {
 		
 	}
 
-	static void readFromFile(String path) throws IOException {
+	public void readFromFile(String path) throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(path));
 		try {
@@ -45,5 +45,10 @@ public class MapReader {
 		} finally {
 			br.close();
 		}
+	}
+	
+	public String[][] getMap(){
+		return map;
+		
 	}
 }
