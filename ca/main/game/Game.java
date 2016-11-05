@@ -11,10 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import ca.main.game.control.KeyInput;
-import ca.main.game.gfx.BufferImageLoader;
 import ca.main.game.gfx.Player;
-import ca.main.game.gfx.SpriteSheet;
 import ca.main.game.gfx.SpriteSheetLoader;
+import ca.main.game.gfx.level.MapReader;
 import ca.main.game.network.GameClient;
 import ca.main.game.network.GameServer;
 
@@ -36,12 +35,15 @@ public class Game extends Canvas implements Runnable{
 	private Player player;
 	private SpriteSheetLoader sprite_sheet_loader;
 	
+	private MapReader mr;
+	
 	private GameClient socketClient;
 	private GameServer socketServer;
 	
 	public void init(){
 		requestFocus();
 		sprite_sheet_loader = new SpriteSheetLoader();
+		mr = new MapReader("res/maps/map01.txt");
 		
 		addKeyListener(new KeyInput(this));//add keyLister to main game
 		
