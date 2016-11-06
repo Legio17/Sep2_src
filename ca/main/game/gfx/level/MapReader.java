@@ -23,20 +23,28 @@ public class MapReader {
 	public void readFromFile(String path) throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(path));
+		BufferedReader temp_br = new BufferedReader(new FileReader(path)); //just to know how many lines does file have
 		try {
 			String line = br.readLine();
+			String temp_line = temp_br.readLine();
 			int currentLine = 0;
-			 map = new String[line.length()][line.length()];
+			int nrOfLines = 0;
+			
+			while (temp_line != null){
+				nrOfLines ++;
+				temp_line = temp_br.readLine();
+			}
+			temp_br.close();
+			
+			map = new String[line.length()][nrOfLines];
 
 			while (line != null) {
 				
 				int column = 0;
 				for (char ch : line.toCharArray()) {
-					map[currentLine][column] = ch+"";
-					//System.out.print(map[currentLine][column]);
+					map[column][currentLine] = ch+"";
 					column ++;
 				}
-				//System.out.println();
 				currentLine ++;
 				line = br.readLine();
 			}

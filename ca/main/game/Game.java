@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import ca.main.game.control.KeyInput;
 import ca.main.game.gfx.Player;
 import ca.main.game.gfx.SpriteSheetLoader;
-import ca.main.game.gfx.level.MapReader;
+import ca.main.game.gfx.level.Map;
 import ca.main.game.network.GameClient;
 import ca.main.game.network.GameServer;
 
@@ -35,12 +35,16 @@ public class Game extends Canvas implements Runnable{
 	private Player player;
 	private SpriteSheetLoader sprite_sheet_loader;
 	
+	private Map map1;
+	
 	private GameClient socketClient;
 	private GameServer socketServer;
 	
 	public void init(){
 		requestFocus();
 		sprite_sheet_loader = new SpriteSheetLoader();
+		
+		map1 = new Map(this,"res/maps/map01.txt");
 		
 		addKeyListener(new KeyInput(this));//add keyLister to main game
 		
@@ -132,7 +136,9 @@ public class Game extends Canvas implements Runnable{
 		
 		//////////// Everything we want to draw on our screen /////////
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+		map1.render(g, 94, 1); //94 - borders are already ignored in grab image
 		player.render(g);
+	
 		/////////// end of drawing here! /////////////////////////////
 		g.dispose();
 		bs.show();

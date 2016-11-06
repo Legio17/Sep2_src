@@ -33,7 +33,7 @@ public class SpriteSheetLoader{
 		}
 		
 		player_model_list.add(spriteSheet);
-
+		
 		
 	}
 	
@@ -47,7 +47,7 @@ public class SpriteSheetLoader{
 			e.printStackTrace();
 		}
 		
-		player_model_list.add(spriteSheet);
+		tile_list.add(spriteSheet);
 
 		
 	}
