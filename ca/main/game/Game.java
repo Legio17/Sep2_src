@@ -30,7 +30,6 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-	private BufferedImage spriteSheet = null;
 	
 	private Player player;
 	private SpriteSheetLoader sprite_sheet_loader;
@@ -48,7 +47,7 @@ public class Game extends Canvas implements Runnable{
 		
 		addKeyListener(new KeyInput(this));//add keyLister to main game
 		
-		player = new Player(100,100,this,0);
+		player = new Player(100,100,this,"applejack");
 		
 		socketClient.sendData("ping".getBytes());
 	}

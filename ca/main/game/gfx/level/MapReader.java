@@ -15,9 +15,7 @@ public class MapReader {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
+		}	
 	}
 
 	public void readFromFile(String path) throws IOException {

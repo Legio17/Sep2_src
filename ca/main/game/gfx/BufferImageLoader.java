@@ -5,6 +5,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * @author Legio-PC
+ *	simple load image from folder class
+ */
 public class BufferImageLoader {
 	
 	private BufferedImage image;
