@@ -5,6 +5,10 @@ import java.awt.event.KeyEvent;
 
 import ca.main.game.Game;
 
+/**
+ * @author Legio-PC
+ * extended keyboard adapter for game
+ */
 public class KeyInput extends KeyAdapter{
 
 	Game game;

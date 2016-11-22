@@ -39,11 +39,14 @@ public class Game extends Canvas implements Runnable{
 	private GameClient socketClient;
 	private GameServer socketServer;
 	
+	/**
+	 * 	construction of necessary items before game can start
+	 */
 	public void init(){
 		requestFocus();
 		sprite_sheet_loader = new SpriteSheetLoader();
 		
-		map1 = new Map(this,"res/maps/map01.txt");
+		map1 = new Map(this,"res/maps/map01.txt");//load map
 		
 		addKeyListener(new KeyInput(this));//add keyLister to main game
 		
@@ -52,6 +55,9 @@ public class Game extends Canvas implements Runnable{
 		socketClient.sendData("ping".getBytes());
 	}
 	
+	/**
+	 * start game thread
+	 */
 	public synchronized void start(){
 		if (running) return; //if game is already running don't do anything 
 			
@@ -68,6 +74,10 @@ public class Game extends Canvas implements Runnable{
 		socketClient.start();
 	}
 	
+	
+	/**
+	 * 	stop game thread
+	 */
 	public synchronized void stop(){
 		if (!running) return; //if game is already dead ignore
 		
@@ -81,6 +91,10 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 * limits amount of updates that games can make per second
+	 */
 	public void run(){
 		init();
 		long lastTime = System.nanoTime();
@@ -117,12 +131,19 @@ public class Game extends Canvas implements Runnable{
 		stop();
 	}
 	
+	/**
+	 * game objects that requires update each time tick happens
+	 */
 	private void tick(){
 		player.tick();//updates player position
 		
 		
 	}
 	
+	/**
+	 * draw all graphics onto player screen
+	 * screen overwritten every time new render happens
+	 */
 	private void render(){
 		
 		BufferStrategy bs = this.getBufferStrategy(); //set buffer strategy from our Canvas
@@ -143,7 +164,11 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	
-	//add controls 
+	
+	/**
+	 * @param e
+	 * controls for player on key down(key pressed)
+	 */
 	public void keyPressed(KeyEvent e){
 		int key = e.getExtendedKeyCode();
 		
@@ -158,6 +183,10 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
+	/**
+	 * @param e
+	 * * controls for player on key released
+	 */
 	public void keyReleased(KeyEvent e){
 		int key = e.getExtendedKeyCode();
 		
@@ -172,6 +201,10 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
+	/**
+	 * @param args
+	 * building up JAVA frame, adding items and game, starting game
+	 */
 	public static void main(String args[]){
 		Game game = new Game();
 		
@@ -191,16 +224,27 @@ public class Game extends Canvas implements Runnable{
 		game.start();//call on game to start
 	}
 
+	/**
+	 * @return SpriteSheetLoader
+	 * game SpriteSheetLoader stored inside game main class
+	 * it is shared for all classes that require graphics loaded from SpriteSheets
+	 */
 	public SpriteSheetLoader getSpriteSheetLoader() { //fetches "main" spritesheet when other classes need models
 		return sprite_sheet_loader;
 	}
 	
 	//fetchers for atributes
 	
+	/**
+	 * @return game frame width
+	 */
 	public int getFrameWidth(){
 		return WIDTH;
 	}
 	
+	/**
+	 * @return game frame height
+	 */
 	public int getFrameHeight(){
 		return HEIGHT;
 	}

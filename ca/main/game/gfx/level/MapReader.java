@@ -9,6 +9,10 @@ public class MapReader {
 
 	private static String[][] map;
 
+	/**
+	 * @param path
+	 * loads information about map construction from txt file
+	 */
 	public MapReader(String path) {
 		try {
 			readFromFile(path);
@@ -18,6 +22,11 @@ public class MapReader {
 		}	
 	}
 
+	/**
+	 * @param path
+	 * @throws IOException
+	 * refines infomations about map loaded into 2-dimensional array(column, row)
+	 */
 	public void readFromFile(String path) throws IOException {
 
 		BufferedReader br = new BufferedReader(new FileReader(path));
@@ -53,6 +62,9 @@ public class MapReader {
 		}
 	}
 	
+	/**
+	 * @return 2-dimensional array of map(column, row)
+	 */
 	public String[][] getMap(){
 		return map;
 		
