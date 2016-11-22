@@ -2,21 +2,22 @@ package ca.main.game.gfx.level;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import ca.main.game.Game;
 import ca.main.game.gfx.SpriteSheet;
 import ca.main.game.gfx.SpriteSheetLoader;
+import ca.main.game.utilities.simpleMethods;
 
 public class Map {
 	
 	SpriteSheetLoader sprite_sheet_loader;
 	SpriteSheet tile_sheet;
 	
-	private BufferedImage grass;
-	private BufferedImage rock;
-	private BufferedImage voidT;
+	private ArrayList<BufferedImage> tileList;
+	private ArrayList<String> tileListNames;
 	
-	
+	private TileReader tr;
 	private MapReader mr;
 	private static String[][] map;
 	
@@ -25,12 +26,10 @@ public class Map {
 		mr = new MapReader(mapTxtPath);
 		map = mr.getMap();
 		
-		sprite_sheet_loader = game.getSpriteSheetLoader();//fetch SpriteSheet from Game class
-		tile_sheet = sprite_sheet_loader.retriveTerrainTile(0);
+		tr = new TileReader(game);
+		tileList = tr.getImageList();
+		tileListNames = tr.getImageListNames();
 		
-		grass = tile_sheet.grabImage(2, 1, 96, 96, 96, 1);
-		rock  = tile_sheet.grabImage(1, 1, 96, 96, 96, 1);
-		voidT  = tile_sheet.grabImage(8, 8, 96, 96, 96, 1);
 		System.out.println(map.length);
 		System.out.println(map[0].length);
 	}
@@ -48,15 +47,15 @@ public class Map {
 	public BufferedImage drawTile(int column, int row){
 		
 		String tile_type = map[column][row];
-
-
+		
 		if(tile_type.equalsIgnoreCase("0")){
-			return grass;
+			return simpleMethods.retriveFromListByName("grass", tileListNames, tileList);
 		} else if(tile_type.equals("1")) {
-			return rock;
+			return simpleMethods.retriveFromListByName("rock", tileListNames, tileList);
 		} else{
-			return voidT;
+			return simpleMethods.retriveFromListByName("voidT", tileListNames, tileList);
 		}
 		
 	}
+	
 }
