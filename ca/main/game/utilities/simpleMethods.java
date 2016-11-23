@@ -3,6 +3,8 @@ package ca.main.game.utilities;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import ca.main.game.gfx.panels.Board;
+
 public class simpleMethods {
 	
 	public static int retrivePosition(String name, ArrayList<String> list){
@@ -16,6 +18,13 @@ public class simpleMethods {
 	}
 	
 	public static BufferedImage retriveFromListByName(String name, ArrayList<String> imageListNames, ArrayList<BufferedImage> imageList){
+		
+		int pos = retrivePosition(name, imageListNames);		
+		return imageList.get(pos);
+		
+	}
+	
+	public static Board retriveFromListByName_Board(String name, ArrayList<String> imageListNames, ArrayList<Board> imageList){
 		
 		int pos = retrivePosition(name, imageListNames);		
 		return imageList.get(pos);

@@ -14,6 +14,8 @@ import ca.main.game.control.KeyInput;
 import ca.main.game.gfx.Player;
 import ca.main.game.gfx.SpriteSheetLoader;
 import ca.main.game.gfx.level.Map;
+import ca.main.game.gfx.panels.Board;
+import ca.main.game.gfx.panels.BoardManager;
 import ca.main.game.network.GameClient;
 import ca.main.game.network.GameServer;
 
@@ -36,6 +38,10 @@ public class Game extends Canvas implements Runnable{
 	
 	private Map map1;
 	
+	private BoardManager boardManager;
+	private Board scoreBoard;
+	private boolean displayScore;
+	
 	private GameClient socketClient;
 	private GameServer socketServer;
 	
@@ -45,6 +51,8 @@ public class Game extends Canvas implements Runnable{
 	public void init(){
 		requestFocus();
 		sprite_sheet_loader = new SpriteSheetLoader();
+		boardManager = new BoardManager(this);
+		loadBoards();
 		
 		map1 = new Map(this,"res/maps/map01.txt");//load map
 		
@@ -52,9 +60,12 @@ public class Game extends Canvas implements Runnable{
 		
 		player = new Player(100,100,this,"applejack");
 		
+		displayScore = false;
+		
 		socketClient.sendData("ping".getBytes());
+		
 	}
-	
+
 	/**
 	 * start game thread
 	 */
@@ -158,6 +169,8 @@ public class Game extends Canvas implements Runnable{
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 		map1.render(g, 94, 1); //94 - borders are already ignored in grab image
 		player.render(g);
+		
+		if (displayScore) scoreBoard.render(g);
 	
 		/////////// end of drawing here! /////////////////////////////
 		g.dispose();
@@ -180,6 +193,11 @@ public class Game extends Canvas implements Runnable{
 			player.setVelY(5);
 		}else if(key == KeyEvent.VK_UP){
 			player.setVelY(-5);
+			
+		// Special actions
+		}else if(key == KeyEvent.VK_E){
+			if (!displayScore) displayScore = true;
+			else if (displayScore) displayScore = false;
 		}
 	}
 	
@@ -199,6 +217,34 @@ public class Game extends Canvas implements Runnable{
 		}else if(key == KeyEvent.VK_UP){
 			player.setVelY(0);
 		}
+	}
+	
+	private void loadBoards() {
+		scoreBoard = boardManager.retriveByName("scoreBoard");
+		
+	}
+
+	/**
+	 * @return SpriteSheetLoader
+	 * game SpriteSheetLoader stored inside game main class
+	 * it is shared for all classes that require graphics loaded from SpriteSheets
+	 */
+	public SpriteSheetLoader getSpriteSheetLoader() { //fetches "main" spritesheet when other classes need models
+		return sprite_sheet_loader;
+	}
+	
+	/**
+	 * @return game frame width
+	 */
+	public int getFrameWidth(){
+		return WIDTH;
+	}
+	
+	/**
+	 * @return game frame height
+	 */
+	public int getFrameHeight(){
+		return HEIGHT;
 	}
 	
 	/**
@@ -222,30 +268,5 @@ public class Game extends Canvas implements Runnable{
 		frame.setVisible(true);
 		
 		game.start();//call on game to start
-	}
-
-	/**
-	 * @return SpriteSheetLoader
-	 * game SpriteSheetLoader stored inside game main class
-	 * it is shared for all classes that require graphics loaded from SpriteSheets
-	 */
-	public SpriteSheetLoader getSpriteSheetLoader() { //fetches "main" spritesheet when other classes need models
-		return sprite_sheet_loader;
-	}
-	
-	//fetchers for atributes
-	
-	/**
-	 * @return game frame width
-	 */
-	public int getFrameWidth(){
-		return WIDTH;
-	}
-	
-	/**
-	 * @return game frame height
-	 */
-	public int getFrameHeight(){
-		return HEIGHT;
 	}
 }
