@@ -190,13 +190,13 @@ public class Game extends Canvas implements Runnable{
 	public void keyPressed(KeyEvent e){
 		int key = e.getExtendedKeyCode();
 		
-		if(key == KeyEvent.VK_RIGHT){
+		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.setVelX(5);
-		}else if(key == KeyEvent.VK_LEFT){
+		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.setVelX(-5);
-		}else if(key == KeyEvent.VK_DOWN){
+		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.setVelY(5);
-		}else if(key == KeyEvent.VK_UP){
+		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.setVelY(-5);
 			
 		// Special actions
@@ -229,13 +229,13 @@ public class Game extends Canvas implements Runnable{
 	public void keyReleased(KeyEvent e){
 		int key = e.getExtendedKeyCode();
 		
-		if(key == KeyEvent.VK_RIGHT){
+		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.setVelX(0);
-		}else if(key == KeyEvent.VK_LEFT){
+		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
 			player.setVelX(0);
-		}else if(key == KeyEvent.VK_DOWN){
+		}else if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
 			player.setVelY(0);
-		}else if(key == KeyEvent.VK_UP){
+		}else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
 			player.setVelY(0);
 		}
 	}
