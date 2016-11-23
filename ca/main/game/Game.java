@@ -39,8 +39,11 @@ public class Game extends Canvas implements Runnable{
 	private Map map1;
 	
 	private BoardManager boardManager;
+	private boolean sthDisplayed;
 	private Board scoreBoard;
 	private boolean displayScore;
+	private Board gameBoard;
+	private boolean displayGame;
 	
 	private GameClient socketClient;
 	private GameServer socketServer;
@@ -61,6 +64,8 @@ public class Game extends Canvas implements Runnable{
 		player = new Player(100,100,this,"applejack");
 		
 		displayScore = false;
+		displayGame = false;
+		sthDisplayed = false;
 		
 		socketClient.sendData("ping".getBytes());
 		
@@ -171,7 +176,7 @@ public class Game extends Canvas implements Runnable{
 		player.render(g);
 		
 		if (displayScore) scoreBoard.render(g);
-	
+		else if (displayGame) gameBoard.render(g);
 		/////////// end of drawing here! /////////////////////////////
 		g.dispose();
 		bs.show();
@@ -196,8 +201,24 @@ public class Game extends Canvas implements Runnable{
 			
 		// Special actions
 		}else if(key == KeyEvent.VK_E){
-			if (!displayScore) displayScore = true;
-			else if (displayScore) displayScore = false;
+			if (!displayScore && !sthDisplayed){ 
+				displayScore = true;
+				sthDisplayed = true;
+			}
+			else if (displayScore){
+				displayScore = false;
+				sthDisplayed = false;
+			}
+			
+		}else if(key == KeyEvent.VK_Q){
+			if (!displayGame && !sthDisplayed){
+				displayGame = true;
+				sthDisplayed = true;
+			}
+			else if (displayGame){
+				displayGame = false;
+				sthDisplayed = false;
+			}
 		}
 	}
 	
@@ -221,7 +242,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private void loadBoards() {
 		scoreBoard = boardManager.retriveByName("scoreBoard");
-		
+		gameBoard = boardManager.retriveByName("gameBoard");
 	}
 
 	/**

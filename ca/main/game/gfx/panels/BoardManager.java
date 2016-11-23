@@ -25,7 +25,10 @@ public class BoardManager {
 	}
 	
 	public void loadAllBoards(){
-		boardList.add(new Board(gameWidth, gameHeight,"scoreBoard", 640, 420,"/img/score_background.png","/img/paper_background.png"));
+		boardList.add(new Board(gameWidth, gameHeight,"scoreBoard", 640, 420,"/img/boards/score_background.png","/img/boards/paper_background.png"));
+		boardListNames.add(boardList.get(boardList.size() - 1).getBoardName());
+		
+		boardList.add(new Board(gameWidth, gameHeight,"gameBoard", 640, 420,"/img/boards/score_background.png","/img/boards/paper_background.png", "/img/boards/grid00_background.png"));
 		boardListNames.add(boardList.get(boardList.size() - 1).getBoardName());
 	}
 	
