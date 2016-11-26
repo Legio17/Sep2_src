@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import ca.main.game.control.KeyInput;
-import ca.main.game.gfx.Font;
+import ca.main.game.gfx.FontLoader;
 import ca.main.game.gfx.Player;
 import ca.main.game.gfx.SpriteSheetLoader;
 import ca.main.game.gfx.level.Map;
@@ -50,7 +50,7 @@ public class Game extends Canvas implements Runnable{
 	private boolean displayGame;
 	private Board fancyBoard;
 	
-	private Font fontLog;
+	private FontLoader fontLog;
 	
 	private boolean login;
 	
@@ -66,7 +66,7 @@ public class Game extends Canvas implements Runnable{
 		boardManager = new BoardManager(this);
 		loadBoards();
 		
-		fontLog = new Font(this);
+		fontLog = new FontLoader(this);
 		
 		map1 = new Map(this,"res/maps/map01.txt");//load map
 		

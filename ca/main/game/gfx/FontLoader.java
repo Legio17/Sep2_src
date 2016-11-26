@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import ca.main.game.Game;
 import ca.main.game.utilities.simpleMethods;
 
-public class Font {
+public class FontLoader {
 	
 	SpriteSheetLoader sprite_sheet_loader;
 	
@@ -17,7 +17,7 @@ public class Font {
 	private String[] fontLog; // font for login
 	private String nickName;
 	
-	public Font(Game game){
+	public FontLoader(Game game){
 		charFonts = new ArrayList<String[]>();
 		imgFonts = new ArrayList<BufferedImage[]>();
 		sprite_sheet_loader = game.getSpriteSheetLoader();
