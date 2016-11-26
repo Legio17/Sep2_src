@@ -33,7 +33,7 @@ public class GameClient extends Thread {
 	public void run(){
 		
 		while(true){
-			byte[] data = new byte[1024];
+			byte[] data = new byte[4];
 			DatagramPacket packet = new DatagramPacket(data, data.length);
 			
 			try {

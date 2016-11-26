@@ -26,6 +26,20 @@ public class Board {
 	private int height;
 	private String name;
 	
+	public Board(int gameWidth, int gameHeight, String name, int width, int height, String solidBgPATH){
+		loader = new BufferImageLoader();
+		
+
+		solidSprite = loadImage(solidBgPATH);
+		solidBackground = solidSprite.grabImage(0, 0, width, height);
+		
+		this.gameWidth = gameWidth;
+		this.gameHeight = gameHeight;
+		this.width = width;
+		this.height = height;
+		this.name =  name;
+	}
+	
 	public Board(int gameWidth, int gameHeight, String name, int width, int height, String solidBgPATH, String writableBgPATH){
 		loader = new BufferImageLoader();
 		

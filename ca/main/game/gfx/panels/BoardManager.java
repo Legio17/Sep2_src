@@ -25,6 +25,9 @@ public class BoardManager {
 	}
 	
 	public void loadAllBoards(){
+		boardList.add(new Board(gameWidth, gameHeight,"fancyBoard", 762, 566,"/img/boards/fancyWood_background2.png"));
+		boardListNames.add(boardList.get(boardList.size() - 1).getBoardName());
+		
 		boardList.add(new Board(gameWidth, gameHeight,"scoreBoard", 640, 420,"/img/boards/score_background.png","/img/boards/paper_background.png"));
 		boardListNames.add(boardList.get(boardList.size() - 1).getBoardName());
 		

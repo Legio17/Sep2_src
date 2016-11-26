@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import ca.main.game.control.KeyInput;
+import ca.main.game.gfx.Font;
 import ca.main.game.gfx.Player;
 import ca.main.game.gfx.SpriteSheetLoader;
 import ca.main.game.gfx.level.Map;
@@ -31,6 +32,9 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	private Thread thread;
 	
+	private Graphics g;	
+	boolean ranOnce;
+	
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	
 	private Player player;
@@ -44,6 +48,11 @@ public class Game extends Canvas implements Runnable{
 	private boolean displayScore;
 	private Board gameBoard;
 	private boolean displayGame;
+	private Board fancyBoard;
+	
+	private Font fontLog;
+	
+	private boolean login;
 	
 	private GameClient socketClient;
 	private GameServer socketServer;
@@ -57,12 +66,17 @@ public class Game extends Canvas implements Runnable{
 		boardManager = new BoardManager(this);
 		loadBoards();
 		
+		fontLog = new Font(this);
+		
 		map1 = new Map(this,"res/maps/map01.txt");//load map
 		
 		addKeyListener(new KeyInput(this));//add keyLister to main game
 		
 		player = new Player(100,100,this,"applejack");
 		
+		login = true;
+		
+		ranOnce = false;
 		displayScore = false;
 		displayGame = false;
 		sthDisplayed = false;
@@ -168,15 +182,20 @@ public class Game extends Canvas implements Runnable{
 			createBufferStrategy(buffering); //if game's buffer strategy is null, create one
 			return;
 		}
-		Graphics g = bs.getDrawGraphics();
-		
+		g = bs.getDrawGraphics();
+
+
 		//////////// Everything we want to draw on our screen /////////
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-		map1.render(g, 94, 1); //94 - borders are already ignored in grab image
-		player.render(g);
-		
-		if (displayScore) scoreBoard.render(g);
-		else if (displayGame) gameBoard.render(g);
+		if (login){
+			fancyBoard.render(g);	
+			fontLog.renderNick(g, 0, 170, 190, 30);
+		} else {
+			map1.render(g, 94, 1); //94 - borders are already ignored in grab image
+			player.render(g);
+			
+			if (displayScore) scoreBoard.render(g);
+			else if (displayGame) gameBoard.render(g);
+		}
 		/////////// end of drawing here! /////////////////////////////
 		g.dispose();
 		bs.show();
@@ -190,6 +209,17 @@ public class Game extends Canvas implements Runnable{
 	public void keyPressed(KeyEvent e){
 		int key = e.getExtendedKeyCode();
 		
+		if (login){
+			if(key == KeyEvent.VK_ENTER){
+				login = false;
+				player.setPlayerName(fontLog.retriveNickName());
+				System.out.println(player.getPlayerName());
+			} else{
+				String c = Character.toString((char)key);
+				fontLog.addToNickName(c);
+				
+			}
+		} else{
 		if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
 			player.setVelX(5);
 		}else if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
@@ -219,7 +249,7 @@ public class Game extends Canvas implements Runnable{
 				displayGame = false;
 				sthDisplayed = false;
 			}
-		}
+		}}
 	}
 	
 	/**
@@ -243,7 +273,10 @@ public class Game extends Canvas implements Runnable{
 	private void loadBoards() {
 		scoreBoard = boardManager.retriveByName("scoreBoard");
 		gameBoard = boardManager.retriveByName("gameBoard");
+		fancyBoard = boardManager.retriveByName("fancyBoard");
 	}
+	
+	
 
 	/**
 	 * @return SpriteSheetLoader

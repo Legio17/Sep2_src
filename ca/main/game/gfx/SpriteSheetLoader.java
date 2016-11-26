@@ -23,6 +23,9 @@ public class SpriteSheetLoader{
 	private ArrayList<SpriteSheet> tile_list = new ArrayList<SpriteSheet>();   
 	private ArrayList<String> tile_listNames = new ArrayList<String>();
 	
+	private ArrayList<SpriteSheet> font_list = new ArrayList<SpriteSheet>();
+	private ArrayList<String> font_listNames = new ArrayList<String>();
+	
 	public SpriteSheetLoader(){
 		loader = new BufferImageLoader();
 		
@@ -31,6 +34,9 @@ public class SpriteSheetLoader{
 		
 		//===================== maps ===========================
 		loadTile("/sheets/tiles/", "terrain");
+		
+		//===================== load fonts =====================
+		loadFont("/sheets/fonts/", "fontLog");
 	}
 	
 	
@@ -72,6 +78,21 @@ public class SpriteSheetLoader{
 		
 		tile_list.add(spriteSheet);
 		tile_listNames.add(png_name);
+		
+	}
+	
+	public void loadFont(String folder_path,String png_name){
+		
+		String path = folder_path + png_name + ".png";
+		
+		try {
+			spriteSheet = new SpriteSheet(loader.loadImage(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		font_list.add(spriteSheet);
+		font_listNames.add(png_name);
 		
 	}
 	
@@ -125,6 +146,17 @@ public class SpriteSheetLoader{
 			pos ++;
 		}
 		System.out.println("terrain model does not exist!");
+		return null;
+	}
+	
+	public SpriteSheet retriveFont(String modelName){
+		int pos = 0;
+		
+		for (String s: font_listNames) {  
+			if (s.equals(modelName)) return font_list.get(pos);
+			pos ++;
+		}
+		System.out.println("font does not exist!");
 		return null;
 	}
 }

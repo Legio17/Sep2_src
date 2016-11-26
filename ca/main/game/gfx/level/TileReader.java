@@ -27,7 +27,7 @@ public class TileReader {
 	
 	public void loadImageToList(String imageName, SpriteSheet terrainSheet, int column, int row, int size, int border){
 		BufferedImage image = null;
-		image = terrainSheet.grabImage(column, row, size, size, size, border);
+		image = terrainSheet.grabImage(column, row, size, size, border);
 		tileList.add(image);
 		tileListNames.add(imageName);
 	}

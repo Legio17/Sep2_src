@@ -69,7 +69,7 @@ public class Count {
 				arr[i][j] = null;
 	}
 
-	public static <T> boolean isThereFive(T[][] arr) {
+	public static <T> boolean isThereFive(int howManyToWin, T[][] arr) {
 		for (int i = 0; i < arr.length; i++) {
 			for (int j = 0; j < arr[0].length; j++) {
 

@@ -18,6 +18,7 @@ public class Player {
 	private double velX = 0; //both velocities are purely for increasing smoothness of movement
 	private double velY = 0; //they are not necessary, but movement looks nicer
 	
+	private String playerName;
 	
 	SpriteSheetLoader sprite_sheet_loader;
 	SpriteSheet player_sheet;
@@ -139,10 +140,20 @@ public class Player {
 	 * loads all images for different positions, they are used based on what direction is facing 
 	 */
 	public void loadBasicPositioning(){
-		player_right = player_sheet.grabImage(3, 1, 96, 96, 96, 1);
-		player_left = player_sheet.grabImage(14, 1, 96, 96, 96, 1);
-		player_up = player_sheet.grabImage(1, 1, 96, 96, 96, 1);
-		player_down = player_sheet.grabImage(5, 1, 96, 96, 96, 1);
+		player_right = player_sheet.grabImage(3, 1, 96, 96,  1);
+		player_left = player_sheet.grabImage(14, 1, 96, 96, 1);
+		player_up = player_sheet.grabImage(1, 1, 96, 96, 1);
+		player_down = player_sheet.grabImage(5, 1, 96, 96, 1);
+	}
+	
+	public void setPlayerName(String name)
+	{
+		this.playerName = name;
+	}
+	
+	public String getPlayerName()
+	{
+		return playerName;
 	}
 	
 	

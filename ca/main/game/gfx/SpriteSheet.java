@@ -27,10 +27,10 @@ public class SpriteSheet {
 	 * @return
 	 * retrieves BufferedImage from sprite sheet
 	 */
-	public BufferedImage grabImage(int col, int row, int width, int height, int pixelSize, int borderPixels){
+	public BufferedImage grabImage(int col, int row, int width, int height, int borderPixels){
 		
-		BufferedImage img = image.getSubimage((col * pixelSize)+borderPixels - pixelSize, //+1 to ignore frame
-											  (row * pixelSize)+borderPixels - pixelSize, 
+		BufferedImage img = image.getSubimage((col * width)+borderPixels - width, //+1 to ignore frame
+											  (row * height)+borderPixels - height, 
 											   width-2*borderPixels, height-2*borderPixels);
 		return img;
 	}

@@ -117,7 +117,7 @@ public class Game2 extends JFrame {
 							button[i][j].setFont(button[i][j].getFont()
 									.deriveFont(18.0f));
 							table[i][j] = "X";
-							if (Count.isThereFive(table) == true) {
+							if (Count.isThereFive(5,table) == true) {
 								JOptionPane.showMessageDialog(null,
 										"X won the game", "Game Over",
 										JOptionPane.PLAIN_MESSAGE);
@@ -128,7 +128,7 @@ public class Game2 extends JFrame {
 									}
 								}
 
-							} else if (Count.isThereFive(table) == false
+							} else if (Count.isThereFive(5,table) == false
 									&& Count.isThereNull(table) == false) {
 								JOptionPane.showMessageDialog(null,
 										"Nobody won the game", "Game Over",
@@ -150,7 +150,7 @@ public class Game2 extends JFrame {
 									.deriveFont(16.0f));
 
 							table[i][j] = "O";
-							if (Count.isThereFive(table) == true) {
+							if (Count.isThereFive(5,table) == true) {
 								JOptionPane.showMessageDialog(null,
 										"O won the game", "Game Over",
 										JOptionPane.PLAIN_MESSAGE);
@@ -160,7 +160,7 @@ public class Game2 extends JFrame {
 										button[k][l].setText(null);
 									}
 								}
-							} else if (Count.isThereFive(table) == false
+							} else if (Count.isThereFive(5,table) == false
 									&& Count.isThereNull(table) == false) {
 								JOptionPane.showMessageDialog(null,
 										"Nobody won the game", "Game Over",
